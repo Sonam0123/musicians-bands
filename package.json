@@ -20,5 +20,6 @@
     "jest": "^28.1.3",
     "sequelize": "^6.21.4",
     "sqlite3": "^5.0.11"
-  }
+  },
+  "homepage": "https://github.com/MultiverseLearningProducts/musicians-bands#readme"
 }
