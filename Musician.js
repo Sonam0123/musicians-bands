@@ -8,5 +8,6 @@ let Musician = sequelize.define("Musician", {
 })
 
 module.exports = {
-    Musician
+    Musician,
+    Sequelize
 };
