@@ -65,4 +65,27 @@ describe('Band and Musician Models', () => {
         expect(musicians[0].name).toBe('Test Musician 1');
         expect(musicians[1].name).toBe('Test Musician 2');
     })
+   
+    test('can get all Bands with their Musicians', async () => {
+
+        await sequelize.sync({ force: true });
+        const testBand = await Band.create({
+            name: 'Test Band',
+            password: 'test'
+        })
+        const testMusician1 = await Musician.create({
+            name: 'Test Musician 1',
+            age: 20
+        })
+        const testMusician2 = await Musician.create({
+            name: 'Test Musician 2',
+            age: 20
+        })
+        await testBand.addMusician(testMusician1);
+        await testBand.addMusician(testMusician2);
+        const bands = await Band.findAll();
+        const musicians = await bands[0].getMusicians();
+        expect(musicians[0].name).toBe('Test Musician 1');
+        expect(musicians[1].name).toBe('Test Musician 2');
+    })
 })
