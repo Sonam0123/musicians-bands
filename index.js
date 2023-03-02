@@ -1,15 +1,16 @@
 const {Band} = require('./Band')
 const {Musician} = require('./Musician')
-//- In the `./index.js` file, before the `module.exports`, associate the two models. **Multiple musicians can be added to a Band.**
-
+const {Song} = require('./Song')
 
 Band.hasMany(Musician);
 Musician.belongsTo(Band);
-
+Band.belongsToMany(Song, {through: 'BandSong'});
+Song.belongsToMany(Band, {through: 'BandSong'});
 
 
 
 module.exports = {
     Band,
-    Musician
+    Musician,
+    Song
 };

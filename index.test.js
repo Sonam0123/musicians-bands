@@ -1,5 +1,5 @@
 const {sequelize} = require('./db');
-const {Band, Musician} = require('./index')
+const {Band, Musician, Song} = require('./index')
 
 describe('Band and Musician Models', () => {
     /**
@@ -13,7 +13,6 @@ describe('Band and Musician Models', () => {
     })
 
     test('can create a Band', async () => {
-        // TODO - test creating a band
         const testBand = await Band.create({
             name: 'Test Band',
             password: 'test'
@@ -22,7 +21,6 @@ describe('Band and Musician Models', () => {
     })
 
     test('can create a Musician', async () => {
-        // TODO - test creating a musician
         const testMusician = await Musician.create({
             name: 'Test Musician',
             age: 20
@@ -44,7 +42,6 @@ describe('Band and Musician Models', () => {
         const musicians = await testBand.getMusicians();
         expect(musicians[0].name).toBe('Test Musician');
     })
-    //Write a test to add multiple musicians to a band. In the test:
     test('can associate a Band with multiple Musicians', async () => {
         const testBand = await Band.create({
             name: 'Test Band',
@@ -88,4 +85,25 @@ describe('Band and Musician Models', () => {
         expect(musicians[0].name).toBe('Test Musician 1');
         expect(musicians[1].name).toBe('Test Musician 2');
     })
+
+    test('can associate a Band with multiple Songs', async () => {
+        const testBand = await Band.create({
+            name: 'Test Band',
+            password: 'test'
+        })
+        const testSong1 = await Song.create({
+            title: 'Test Song 1',
+            year: 2020
+        })
+        const testSong2 = await Song.create({
+            title: 'Test Song 2',
+            year: 2020
+        })
+        await testBand.addSong(testSong1);
+        await testBand.addSong(testSong2);
+        const songs = await testBand.getSongs();
+        expect(songs[0].title).toBe('Test Song 1');
+        expect(songs[1].title).toBe('Test Song 2');
+    })
+
 })
