@@ -133,11 +133,10 @@ describe('Band and Musician Models', () => {
         await testBand.addSong(testSong1);
         await testBand.addSong(testSong2);
         const bands = await Band.findAll({include: [Musician, Song]});
+        console.log(bands[0])
         expect(bands[0].Musicians[0].name).toBe('Test Musician 1');
         expect(bands[0].Musicians[1].name).toBe('Test Musician 2');
         expect(bands[0].Songs[0].title).toBe('Test Song 1');
         expect(bands[0].Songs[1].title).toBe('Test Song 2');
     })
-
-
 })
